@@ -150,10 +150,11 @@
         popup.classList.add('show');
         
         // Gửi yêu cầu Ajax để lấy nội dung dịch
-        fetch(`/get_translation/${messageId}/`)
-          .then(response => response.json())
+        fetch(`/explanation/${messageId}/`)
+
+        .then(response => response.json())
           .then(data => {
-            popupContent.innerHTML = data.translation; // Cập nhật nội dung popup
+            popupContent.innerHTML = data.explanation; // Cập nhật nội dung popup
           })
           .catch(error => {
             console.error('Error fetching translation:', error);

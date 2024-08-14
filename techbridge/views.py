@@ -130,7 +130,6 @@ def thread_view(request, thread_id):
     first_message = thread.first_message
     messages = GroupMessage.objects.filter(thread=thread).order_by('timestamp')
     group = thread.group
-    all_texts = ' '.join(message.message_content for message in messages)
 
     if request.method == "POST":
         message_content = request.POST.get('message_content')
@@ -153,6 +152,8 @@ def thread_view(request, thread_id):
 @login_required
 def explanation(request, message_id):
     message = get_object_or_404(GroupMessage, id=message_id)
-    word_to_explain = message.message_content
-    explanation = word_explanation(word_to_explain)
+    paragraph = message.message_content
+    user_profile = UserProfile.objects.get(user=request.user)
+    language = user_profile.main_language
+    explanation = word_explanation(paragraph, language)
     return JsonResponse({'explanation': explanation})

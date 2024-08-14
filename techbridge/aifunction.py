@@ -16,7 +16,7 @@ def word_explanation(paragraph,language):
     Do not include words that can be considered It professional vocabs but are used within non It professional people. 
     Only detect vocabs higher than IT Skills Standard level 3.
     Don't say anything about hwy you chose that words and what words you chose.
-    Write the reply in "{language}"
+    Write the reply in {language} language
     "{paragraph}"
     """
     
