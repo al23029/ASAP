@@ -147,6 +147,7 @@ def thread_view(request, thread_id):
         'first_message': first_message,
         'messages': messages,
         'group': group,
+        'user_id': request.user.id,
     })
 
 @login_required
