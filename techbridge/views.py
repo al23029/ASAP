@@ -132,6 +132,7 @@ def thread_view(request, thread_id):
     first_message = thread.first_message
     messages = GroupMessage.objects.filter(thread=thread).order_by('timestamp')
     group = thread.group
+    summary = summarize_text(allTexts,User.main_language)
 
     if request.method == "POST":
         message_content = request.POST.get('message_content')
