@@ -56,10 +56,10 @@
             <div class="col-lg-12">
               <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand" href="#">
-                  <img src="{% static 'images/logo/logo_white.png' %}" alt="Logo" style="height: 40px;" />
-              </a>
-          
-               
+                  {% load static %}
+                  <img id="logo-white" src="{% static 'images/logo/logo_white.png' %}"  alt="Logo" style="height: 100px;" class="header-logo"/>
+                  <img id="logo-navy" src="{% static 'images/logo/logo_navy.png' %}"  alt="Logo" style="height: 100px;" class="header-logo"/>
+                </a>
                 <button
                   class="navbar-toggler"
                   type="button"
@@ -100,18 +100,24 @@
                   .navbar-btn {
                     margin-right: 40px; /* Adjust the value as needed */
                   }
+               
+                  .navbar-brand img {
+                    height: 60px;
+                  }                  
+                  /* ロゴに関するスタイル */
+                  .header-logo.headerLogoScroll.-before {
+                    display : block;
+                  }
+                  .header-logo.-after {
+                    display : none;
+                  }
+                  .header-logo.headerLogoScroll.-after {
+                    display : none;
+                  }
+
                 </style>
                 
-                <div class="navbar-btn d-none d-sm-inline-block">
-                  <a
-                    class="main-btn"
-                    data-scroll-nav="0"
-                    href="signin/"
-                    rel="nofollow"
-                  >
-                    <strong>SIGN IN</strong> 
-                  </a>
-                </div>
+                
                 <div class="navbar-btn d-none d-sm-inline-block">
                   <a
                     class="main-btn"
@@ -120,6 +126,16 @@
                     rel="nofollow"
                   >
                     <strong>SIGN UP</strong>
+                  </a>
+                </div>
+                <div class="navbar-btn d-none d-sm-inline-block">
+                  <a
+                    class="main-btn"
+                    data-scroll-nav="0"
+                    href="signin/"
+                    rel="nofollow"
+                  >
+                    <strong>SIGN IN</strong> 
                   </a>
                 </div>
               </nav>
@@ -546,5 +562,6 @@
     <script src="{% static 'js/count-up.min.js' %}"></script>
     <script src="{% static 'js/particles.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/logo_after.js' %}"></script>
   </body>
 </html>
