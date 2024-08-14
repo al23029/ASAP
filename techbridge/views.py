@@ -5,11 +5,9 @@ from .forms import SignUpForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
-from .models import Group, GroupMember, GroupMessage, GroupThread
-
-
-from django.shortcuts import render
+from django.http import Http404, JsonResponse
+from .models import Group, GroupMember, GroupMessage, GroupThread, UserProfile
+from .aifunction import  word_explanation
 from django.conf import settings
 import requests
 
@@ -132,7 +130,7 @@ def thread_view(request, thread_id):
     first_message = thread.first_message
     messages = GroupMessage.objects.filter(thread=thread).order_by('timestamp')
     group = thread.group
-    summary = summarize_text(allTexts,User.main_language)
+    all_texts = ' '.join(message.message_content for message in messages)
 
     if request.method == "POST":
         message_content = request.POST.get('message_content')
@@ -150,3 +148,10 @@ def thread_view(request, thread_id):
         'messages': messages,
         'group': group,
     })
+
+@login_required
+def explanation(request, message_id):
+    message = get_object_or_404(GroupMessage, id=message_id)
+    word_to_explain = message.message_content
+    explanation = word_explanation(word_to_explain)
+    return JsonResponse({'explanation': explanation})

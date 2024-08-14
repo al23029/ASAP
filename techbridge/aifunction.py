@@ -9,14 +9,15 @@ genai.configure(api_key=API_KEY)
 # Tạo một đối tượng model từ Gemini
 model = genai.GenerativeModel('gemini-1.5-flash')
 
-def summarize_text(paragraph, language):
+
+def word_explanation(paragraph,language):
     PROMPT = f"""
-    Please make a summary of multiple people's conversation below in {language} language.
-    The longest it can be is 5 sentences. 
-    Make sure to include important informations about developing an app.
+    Please detect IT professional vocabulary from the follwing conversation and write the explanations of the each vocabs. 
+    Do not include words that can be considered It professional vocabs but are used within non It professional people. 
+    Only detect vocabs higher than IT Skills Standard level 3.
+    Don't say anything about hwy you chose that words and what words you chose.
+    Write the reply in "{language}"
     "{paragraph}"
-    
-    Tóm tắt:
     """
     
     # Gọi API để tóm tắt văn bản
@@ -24,18 +25,3 @@ def summarize_text(paragraph, language):
     
     # Trả về kết quả tóm tắt
     return response.text.strip()
-
-# Ví dụ sử dụng hàm với đoạn văn bản
-paragraph = """
-i'm free now can u open ur vs code 
-Oh hiiii I'm actually rewriting the code 
-So I don't want someone to merge it I'll push the new code later and I want you to check that and merge 
-Thank you 
-okayyyyy thankyou boss 
-I'm free on tomorrow morning so I will try to fix some problems we still have 
-Thank youuuuuu 
-"""
-summary = summarize_text(paragraph)
-
-# In ra tóm tắt
-print(summary)

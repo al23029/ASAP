@@ -16,6 +16,8 @@
     </div>
     <div class="chat-page">
       <div class="msg-inbox">
+
+
         <div class="msg-page">
 
           <!--Display the first message-->
@@ -60,8 +62,9 @@
                 {% endif %}
               {% endif %}
             {% endfor %}
+          </div>
 
-    </div>
+        </div>
 
       <form method="post" action="{% url 'thread' thread.id %}">
         {% csrf_token %}
