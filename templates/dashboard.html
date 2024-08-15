@@ -18,16 +18,23 @@
         }
         .header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between; /* 要素を両端に配置 */
             padding: 10px;
             background-color: #ffffff;
             border-bottom: 2px solid #dee2e6;
             height: 60px;
-            position: relative
+            position: relative;
         }
-        .header .left,
-        .header .right {
+        .header .left{
+            display: flex;
+            align-items: center;
+            color:#2449c3;
+        }
+        .header .center-logo{
+            text-align:center;
+        }
+        .right {
             display: flex;
             align-items: center;
             color:#2449c3;
@@ -55,7 +62,7 @@
             border-color: #2449c3;
         }
         .header .logo img {
-            height: 150px;
+            height: 70px;
             width: auto;
         }
         .close-button {
@@ -93,6 +100,11 @@
             color: #2449c3;
             
         }
+        .username-display {
+            margin-right: 15px;
+            color: #2449c3;
+            font-weight: bold;
+        }
 
        
 
@@ -102,25 +114,29 @@
 <body>
 
     <div class="container">
+        
         <div class="header">
-            <div class="left">
-                <a href="{% url 'create_groupchat' %}" class="btn btn-create-group">
-                    <img src="{% static 'images/creategroup.png' %}" alt="Create Group">
-                </a>
-            </div>
-            <div class="center logo">
-                <a class="logo fixed-logo" id="logo-top" href="javascript:void(0)">
-                    <img src="{% static 'images/logo/logo_navy.png' %}" alt="logo" />
-                </a>
-                
-            </div>
             
-            <div class="right">
-                <form method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-outline-primary btn-signout">Sign out</button>
-                </form>
-            </div>
+                <div class="left">
+                    <a href="{% url 'create_groupchat' %}" class="btn btn-create-group">
+                        <img src="{% static 'images/creategroup.png' %}" alt="Create Group">
+                    </a>
+                </div>
+                
+                <div class="center logo">
+                    <a class="logo fixed-logo" id="logo-top" href="javascript:void(0)">
+                        <img src="{% static 'images/logo/logo_navy.png' %}" alt="logo" />
+                    </a>
+                    
+                </div>
+                
+                <div class="right">
+                    <span class="username-display">{{ username }}</span> <!-- ユーザー名を表示 -->    
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-primary btn-signout">Sign out</button>
+                    </form>
+                </div>
         </div>
 
         {% for group in groups %}

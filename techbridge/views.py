@@ -50,7 +50,8 @@ def signup(request):
 @login_required
 def dashboard(request):
     user_groups = Group.objects.filter(groupmember__user=request.user)
-    return render(request, 'dashboard.html', {'groups': user_groups})
+    username = request.user.username #ユーザー名を取得
+    return render(request, 'dashboard.html', {'groups': user_groups, 'username' : username})
 
 @login_required
 def logout(request):
@@ -95,8 +96,7 @@ def chat_view(request, group_id):
 
     first_message_ids = [thread.first_message.id for thread in threads if thread.first_message]
     # Fetch all messages related to the first messages of the threads
-    messages = GroupMessage.objects.filter(id__in=first_message_ids).select_related('sender')
-    
+    messages = GroupMessage.objects.filter(id__in=first_message_ids).select_related('sender').order_by('timestamp')
     if request.method == "POST":
         message_content = request.POST.get('message_content')
         if message_content:
